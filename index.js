@@ -22,6 +22,13 @@ const scripts = require(path.join(process.cwd(), "package.json")).scripts;
 
 let npmArgs = JSON.parse(process.env["npm_config_argv"]);
 let options = npmArgs.original;
+
+for (var i = 0; i < options.length; i++) { 
+  if (options[i] === "--cwd") {
+    options.splice(i, 2); // remove '--cmd' and '<path>'
+  }
+}
+
 if (!(options[0] === "run" || options[0] === "run-script")) {
   options.unshift("run");
 }
